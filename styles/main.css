@@ -187,10 +187,10 @@ footer {
 }
 
 #menu-toggle:checked ~ .menu-btn::before {
-	content: "\2715"; /* X symbol when open */
+	content: "\2715"; /* should make X symbol when open */
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 767px) {
 	.menu-btn {
 		display: none; /* Hides the menu button on larger screens */
 	}
@@ -204,7 +204,7 @@ footer {
 	
 	.menu li:has(.submenu) > a::after {
 		content: " ▼";
-		float: none;
+		float: initial;
 	}
 	
 	.submenu {
