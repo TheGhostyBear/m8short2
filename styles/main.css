@@ -109,6 +109,7 @@ footer {
 /* the styles for the navigation menu */
 .navbar {
 	background-color: var(--primary-color);
+	position: relative;
 	& ul {
 		list-style-type: none;
 		margin: 0;
@@ -124,33 +125,98 @@ footer {
 		font-weight: bold;
 	}
 	& a.current:hover { 
-		font-style: normal; /* override hover effect */
+		font-style: normal; /* overrride hover effect? */
 	}
 }
 
 .menu {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-evenly;
+	display: none; /* Hides the menu on small screens */
+	flex-direction: column;
+	width: 100%;
 }
 
 .menu li:has(.submenu) {
 	position: relative;
 	& small {
-		margin-left: .25em; /* add space for arrow */
+		display: none; /* Hides the defauljt down arrow */
+		margin-left: .25em; /*space for arrow */
 	}
 	&:hover > .submenu {
 		display: block;
+	}
+	& > a::after {
+		content: " ▶";
+		float: right;
 	}
 }
 
 .submenu {
 	position: absolute;
-	left: 0;
+	left: 100%;
+	top: 0;
 	background-color: var(--primary-color);
 	color: var(--light);
 	width: 175%;
 	display: none;
+	z-index: 100;
+}
+
+/* Styles for all the responsive navigation */
+#menu-toggle {
+	display: none; /* Hide the checkbox */
+}
+
+.menu-btn {
+	display: block;
+	padding: 0.75em;
+	color: var(--light);
+	cursor: pointer;
+	font-size: 1.5em;
+}
+
+#menu-toggle:checked ~ .menu {
+	display: flex;
+}
+
+#menu-toggle:checked ~ .menu-btn {
+	content: "✕";
+}
+
+.menu-btn::before {
+	content: "\2630"; /* hamburger symbol */
+}
+
+#menu-toggle:checked ~ .menu-btn::before {
+	content: "\2715"; /* X symbol when open */
+}
+
+@media only screen and (min-width: 768px) {
+	.menu-btn {
+		display: none; /* Hides the menu button on larger screens */
+	}
+	
+	.menu {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-evenly;
+	}
+	
+	.menu li:has(.submenu) > a::after {
+		content: " ▼";
+		float: none;
+	}
+	
+	.submenu {
+		left: 0;
+		top: 100%;
+		width: 175%;
+	}
+	
+	#menu-toggle:checked ~ .menu {
+		display: flex;
+		flex-direction: row;
+	}
 }
 
 /* the media query for the page */
